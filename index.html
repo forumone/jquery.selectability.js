@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jquery.selectability.js"></script>
+    <style>
+html, body {
+  margin: 0 auto;
+  width: 960px;
+  font-family: sans-serif;
+}
+
+div.demo {
+  width: 470px;
+  margin: 0;
+  padding: 5px;
+}
+
+.selectability-offscreen {
+  position: absolute;
+  left: -999em;
+}
+
+.selectability {
+  display: inline-block;
+  max-width: 300px;
+}
+
+.selectability [role*=textbox] {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.selectability[aria-expanded=true] [role*=listbox] {
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+}
+
+.selectability [role=option][aria-disabled=false]:hover,
+.selectability [role=option][aria-disabled=false]:focus {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selectability [aria-disabled=true] {
+  color: #999;
+}
+    </style>
+  </head>
+  <body>
+    <h1>Selectability</h1>
+
+    <h2>What is it?</h2>
+    <p>Selectability is an accessible, themable dropdown widget. It aims to provide the same native experience as an HTML <code>&lt;select&gt;</code> element, but with much richer CSS styling.</p>
+
+    <h2>How do I use it?</h2>
+    <p>You'll need to include <a href="https://jquery.com/download/">jQuery</a> first. Then, drop the <a href="https://github.com/forumone/jquery.selectability.js/blob/master/jquery.selectability.js">selectability plugin</a> into your project.</p>
+
+    <p>After that, the following snippet will change any selects to use Selectability instead:</p>
+
+    <pre>$('select').selectability();</pre>
+
+    <h2>Demo</h2>
+
+    <h3>Using &lt;select&gt;</h3>
+    <label for="lunch1">Today's specials:</label>
+    <select class="no-selectability" id="lunch1">
+      <option>Ham and swiss on rye</option>
+      <option disabled>Chili con carne</option>
+      <option>Cobb salad</option>
+    </select>
+
+    <h3>Using selectability</h3>
+    <label for="lunch2">Today's specials:</label>
+    <select id="lunch2">
+      <option>Ham and swiss on rye</option>
+      <option disabled>Chili con carne</option>
+      <option>Cobb salad</option>
+    </select>
+  </div>
+  <script>$(function () { $('select:not(.no-selectability)').selectability(); })</script>
+</html>
