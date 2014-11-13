@@ -17,8 +17,6 @@ var KEY_ENTER = 13,
     KEY_DOWN = 40,
     KEY_ESCAPE = 27;
 
-var backdrop = $('<div id="selectability-backdrop"></div>').prependTo('body');
-
 $.fn.selectability = function() {
   this.each(function() {
     var $this = $(this);
@@ -168,7 +166,28 @@ Selectability.prototype.observeProperties = function () {
 };
 
 Selectability.prototype.registerEvents = function () {
+  var selectability = this;
   this.combobox.on({
+    focusout: function (event) {
+      var elt = this;
+      setTimeout(function () {
+        /*
+         * So *after* the focusout event chain has run its course, we look to
+         * see what happens with document.activeElement.
+         *
+         * If whatever got the focus after we were notified doesn't live in the
+         * selectability DOM tree, close the combobox.
+         *
+         * All this, because 'event.relatedTarget' is a DOM3 spec and jQuery
+         * only patches it for mouse events.
+         *
+         * sigh.
+         */
+        if (!$.contains(elt, document.activeElement)) {
+          selectability.closeCombobox();
+        }
+      }, 0);
+    },
     click: $.proxy(this.comboboxClick, this),
     keydown: $.proxy(this.comboboxKeydown, this)
   });
@@ -177,16 +196,7 @@ Selectability.prototype.registerEvents = function () {
     click: $.proxy(this.listboxClick, this),
     keydown: $.proxy(this.listboxKeydown, this)
   });
-
-  backdrop.on({
-    click: $.proxy(this.backdropClick, this)
-  });
 }
-
-Selectability.prototype.backdropClick = function() {
-  backdrop.hide();
-  this.closeCombobox();
-};
 
 Selectability.prototype.comboboxClick = function() {
   if (!this.disabled) {
@@ -202,6 +212,13 @@ Selectability.prototype.comboboxKeydown = function(event) {
   switch (event.which) {
     case KEY_ENTER:
     case KEY_SPACE:
+      if (this.combobox.attr('aria-expanded') === 'true') {
+        this.closeCombobox();
+        this.combobox.focus();
+        event.preventDefault();
+        return false;
+      }
+
     case KEY_UP:
     case KEY_DOWN:
     case KEY_LEFT:
@@ -212,6 +229,7 @@ Selectability.prototype.comboboxKeydown = function(event) {
       this.active.focus();
       event.preventDefault();
       return false;
+
     case KEY_ESCAPE:
       this.closeCombobox();
       this.combobox.focus();
@@ -259,7 +277,6 @@ Selectability.prototype.listboxKeydown = function(event) {
     case KEY_SPACE:
       this.setActive($(event.target));
       this.closeCombobox();
-      backdrop.hide();
       
       event.preventDefault();
       return false;
@@ -291,13 +308,11 @@ Selectability.prototype.closeCombobox = function() {
   this.active = null;
   this.listbox.empty();
   this.combobox.attr('aria-expanded', false);
-  backdrop.hide();
 };
 
 Selectability.prototype.openCombobox = function() {
   this.populateListbox();
   this.combobox.attr('aria-expanded', true);
-   backdrop.show();
 };
 
 Selectability.prototype.populateListbox = function() {
