@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="jquery.selectability.js"></script>
     <style>
+h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  font-size: 18pt;
+  color: #ef4836;
+}
+
+h2 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  font-size: 14pt;
+  color: #555559;
+}
+
+h3 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+  color: #555559;
+}
+
 html, body {
   margin: 0 auto;
   width: 960px;
-  font-family: sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 11pt;
+}
+
+code, pre {
+  font-family: 'Source Code Pro', monospace;
 }
 
 div.demo {
@@ -24,17 +51,35 @@ div.demo {
 .selectability {
   display: inline-block;
   max-width: 300px;
+  background-color: #7ccfd9;
+  border-radius: 5px;
+  color: #fff;
 }
 
 .selectability [role*=textbox] {
-  border: 1px solid black;
-  border-radius: 5px;
+  padding: 10px;
+}
+
+.selectability [role*=textbox]::after {
+  content: " \0025bc ";
+  padding-left: 1em;
+}
+
+.selectability[aria-expanded="true"] [role*=textbox]::after {
+  content: " \0025b2 ";
 }
 
 .selectability[aria-expanded=true] [role*=listbox] {
-  border: 1px solid black;
+  padding: 10px;
+  border: 1px solid #7ccfd9;
+  background-color: white;
   border-radius: 5px;
   position: absolute;
+}
+
+.selectability [role=option] {
+  color: #555559;
+  cursor: default;
 }
 
 .selectability [role=option][aria-disabled=false]:hover,
