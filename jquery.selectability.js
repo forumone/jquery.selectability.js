@@ -258,17 +258,20 @@ Selectability.prototype.listboxClick = function(event) {
 
 Selectability.prototype.setActive = function(active) {
   var index = this.listbox.find('[role=option]').index(active),
-      value = this.element.find('option').eq(index).val();
+      value = this.element.find('option').eq(index).val(),
+      event = $.Event('change', {
+        val: value,
+        selectability: true
+      });
 
-  this.active = active;
-  this.textbox.text(active.attr('label') || active.text());
-  this.element.val(value);
+  this.element.trigger(event);
 
-  return this.element.trigger({
-    type: 'change',
-    val: value,
-    selectability: true
-  });
+  // promote 'change' to a cancelable event
+  if (!event.isDefaultPrevented()) {
+    this.active = active;
+    this.textbox.text(active.attr('label') || active.text());
+    this.element.val(value);
+  }
 };
 
 Selectability.prototype.listboxKeydown = function(event) {
