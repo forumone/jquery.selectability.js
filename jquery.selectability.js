@@ -264,6 +264,11 @@ Selectability.prototype.setActive = function(active) {
         selectability: true
       });
 
+  // nothing to do
+  if (this.active.is(active)) {
+    return;
+  }
+
   this.element.trigger(event);
 
   // promote 'change' to a cancelable event
@@ -280,6 +285,7 @@ Selectability.prototype.listboxKeydown = function(event) {
     case KEY_SPACE:
       this.setActive($(event.target));
       this.closeCombobox();
+      this.combobox.focus();
       
       event.preventDefault();
       return false;
