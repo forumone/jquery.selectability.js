@@ -59,7 +59,7 @@ Selectability.prototype.buildElements = function () {
   this.textbox = $('<div></div>')
     .attr({
       role: 'textbox',
-      tabindex: 0,
+      tabindex: -1,
       'aria-readonly': 'true'
     });
 
