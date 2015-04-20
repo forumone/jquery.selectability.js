@@ -265,7 +265,7 @@ Selectability.prototype.setActive = function(active) {
       });
 
   // nothing to do
-  if (this.active.is(active)) {
+  if (this.element.val() === value) {
     return;
   }
 
