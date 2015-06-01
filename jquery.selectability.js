@@ -309,7 +309,12 @@ Selectability.prototype.toggleCombobox = function() {
     this.closeCombobox();
   } else {
     this.openCombobox();
-    this.active.focus();
+
+    // We may have an empty select widget, so we can't always depend on
+    // `active' being defined  
+    if (this.active) {
+      this.active.focus();
+    }
   }
 };
 
