@@ -112,7 +112,7 @@ Selectability.prototype.stealLabel = function () {
       ids.push(autogen);
     });
 
-  this.combobox.attr('aria-labelledy', ids.join(' '));
+  this.combobox.attr('aria-labelledby', ids.join(' '));
 };
 
 Selectability.prototype.populateText = function (event) {
