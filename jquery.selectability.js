@@ -67,7 +67,7 @@ Selectability.prototype.buildElements = function () {
     .attr({
       role: 'listbox',
       tabindex: -1,
-      'aria-multiselectabile': 'false'
+      'aria-multiselectable': 'false'
     });
 
   this.combobox = $('<div></div>')
