@@ -1,6 +1,13 @@
 {
     "name": "jquery-selectability",
-    "version": "1.0.0",
+    "description": "An accessible, style-friendly dropdown widget",
+    "keywords": [
+        "jquery",
+        "selectability",
+        "accessibility",
+        "dropdown"
+    ],
+    "version": "1.0.1",
     "homepage": "https://forumone.github.io/jquery.selectability.js/",
     "authors": [
         "Alex Ford <aford@forumone.com>"

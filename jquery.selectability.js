@@ -259,6 +259,7 @@ Selectability.prototype.listboxClick = function(event) {
 Selectability.prototype.setActive = function(active) {
   var index = this.listbox.find('[role=option]').index(active),
       value = this.element.find('option').eq(index).val(),
+      prev = this.element.val(),
       event = $.Event('change', {
         val: value,
         selectability: true
@@ -269,13 +270,18 @@ Selectability.prototype.setActive = function(active) {
     return;
   }
 
+  // some frameworks read element.val() instead of the event value
+  // so we populate the value and restore it (see below) if the event is canceled
+  this.element.val(value);
   this.element.trigger(event);
 
   // promote 'change' to a cancelable event
   if (!event.isDefaultPrevented()) {
     this.active = active;
     this.textbox.text(active.attr('label') || active.text());
-    this.element.val(value);
+  } else {
+    // if the event is prevented, restore the old value
+    this.element.val(prev);
   }
 };
 
