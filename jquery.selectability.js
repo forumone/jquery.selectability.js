@@ -59,7 +59,7 @@ Selectability.prototype.buildElements = function () {
   this.textbox = $('<div></div>')
     .attr({
       role: 'textbox',
-      tabindex: 0,
+      tabindex: -1,
       'aria-readonly': 'true'
     });
 
@@ -67,7 +67,7 @@ Selectability.prototype.buildElements = function () {
     .attr({
       role: 'listbox',
       tabindex: -1,
-      'aria-multiselectabile': 'false'
+      'aria-multiselectable': 'false'
     });
 
   this.combobox = $('<div></div>')
@@ -112,7 +112,7 @@ Selectability.prototype.stealLabel = function () {
       ids.push(autogen);
     });
 
-  this.combobox.attr('aria-labelledy', ids.join(' '));
+  this.combobox.attr('aria-labelledby', ids.join(' '));
 };
 
 Selectability.prototype.populateText = function (event) {
@@ -258,17 +258,35 @@ Selectability.prototype.listboxClick = function(event) {
 
 Selectability.prototype.setActive = function(active) {
   var index = this.listbox.find('[role=option]').index(active),
-      value = this.element.find('option').eq(index).val();
+      value = this.element.find('option').eq(index).val(),
+      prev = this.element.val(),
+      event = $.Event('change', {
+        val: value,
+        selectability: true
+      });
 
-  this.active = active;
-  this.textbox.text(active.attr('label') || active.text());
+  // nothing to do
+  if (this.element.val() === value) {
+    return;
+  }
+
+  // some frameworks read element.val() instead of the event value
+  // so we populate the value and restore it (see below) if the event is canceled
   this.element.val(value);
-
-  return this.element.trigger({
-    type: 'change',
-    val: value,
-    selectability: true
-  });
+  
+  try {
+    // work around event handlers throwing exceptions
+    this.element.trigger(event);
+  } finally {
+    // promote 'change' to a cancelable event
+    if (!event.isDefaultPrevented()) {
+      this.active = active;
+      this.textbox.text(active.attr('label') || active.text());
+    } else {
+      // if the event is prevented, restore the old value
+      this.element.val(prev);
+    } 
+  }
 };
 
 Selectability.prototype.listboxKeydown = function(event) {
@@ -277,6 +295,7 @@ Selectability.prototype.listboxKeydown = function(event) {
     case KEY_SPACE:
       this.setActive($(event.target));
       this.closeCombobox();
+      this.combobox.focus();
       
       event.preventDefault();
       return false;
@@ -300,7 +319,12 @@ Selectability.prototype.toggleCombobox = function() {
     this.closeCombobox();
   } else {
     this.openCombobox();
-    this.active.focus();
+
+    // We may have an empty select widget, so we can't always depend on
+    // `active' being defined  
+    if (this.active) {
+      this.active.focus();
+    }
   }
 };
 
