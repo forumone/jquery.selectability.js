@@ -273,15 +273,19 @@ Selectability.prototype.setActive = function(active) {
   // some frameworks read element.val() instead of the event value
   // so we populate the value and restore it (see below) if the event is canceled
   this.element.val(value);
-  this.element.trigger(event);
-
-  // promote 'change' to a cancelable event
-  if (!event.isDefaultPrevented()) {
-    this.active = active;
-    this.textbox.text(active.attr('label') || active.text());
-  } else {
-    // if the event is prevented, restore the old value
-    this.element.val(prev);
+  
+  try {
+    // work around event handlers throwing exceptions
+    this.element.trigger(event);
+  } finally {
+    // promote 'change' to a cancelable event
+    if (!event.isDefaultPrevented()) {
+      this.active = active;
+      this.textbox.text(active.attr('label') || active.text());
+    } else {
+      // if the event is prevented, restore the old value
+      this.element.val(prev);
+    } 
   }
 };
 
