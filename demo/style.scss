@@ -17,9 +17,12 @@ body {
 
 h1 
 {
-    font-size: 50px;
+    font-size: 5rem;
     text-align: center;
     margin: 60px auto 100px;
+    @media screen and (max-width: 390px) {
+        font-size: 4rem;
+    }
 }
 
 .main
