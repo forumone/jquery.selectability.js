@@ -13,13 +13,7 @@ body {
 h1 {
   font-size: 50px;
   text-align: center;
-  margin: 60px auto; }
-
-p {
-  text-align: center;
-  margin: 60px auto;
-  width: 40%;
-  min-width: 300px; }
+  margin: 60px auto 100px; }
 
 .main {
   width: 25%;
