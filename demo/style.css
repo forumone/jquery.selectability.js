@@ -25,6 +25,7 @@ h1 {
 
 /* SELECTABILITY */
 /* https://forumone.github.io/jquery.selectability.js/ */
+/* apply this class to the html select element to hide it offscreen. */
 .selectability-offscreen {
   position: absolute !important;
   overflow: hidden;
@@ -38,6 +39,7 @@ h1 {
   border: 0;
   outline: 0; }
 
+/*this is the main container. apply base select box styles. */
 .selectability {
   font-family: Arial;
   font-size: 2.0rem;
@@ -59,9 +61,11 @@ h1 {
     .selectability {
       font-size: 1.6rem; } }
 
+/* the text inside the main select box before selecting an item. */
 .selectability [role*=textbox] {
   padding: 10px 0 6px 20px; }
 
+/*the dropdown arrow & padding*/
 .selectability [role*=textbox]::after {
   font-size: 2.6rem;
   float: right;
@@ -73,9 +77,11 @@ h1 {
   border-bottom-right-radius: 5px;
   background-color: #99dbd7; }
 
+/* the dropdown arrow after exansion (here, unchanged). */
 .selectability[aria-expanded='true'] [role*=textbox]::after {
   content: '\0025be'; }
 
+/* the entire dropdown list. position accordingly. */
 .selectability[aria-expanded=true] [role*=listbox] {
   position: absolute;
   top: 38px;
@@ -85,6 +91,7 @@ h1 {
   background-color: #fff;
   border: 1px solid black; }
 
+/* each selectable option. */
 .selectability [role=option] {
   font-weight: 300;
   padding: 10px 10px 10px 20px;

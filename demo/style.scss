@@ -34,6 +34,8 @@ h1
 
 /* SELECTABILITY */
 /* https://forumone.github.io/jquery.selectability.js/ */
+
+/* apply this class to the html select element to hide it offscreen. */
 .selectability-offscreen
 {
     position: absolute !important;
@@ -51,6 +53,7 @@ h1
     outline: 0;
 }
 
+/*this is the main container. apply base select box styles. */
 .selectability
 {
     font-family: Arial;
@@ -80,11 +83,13 @@ h1
     }
 }
 
+/* the text inside the main select box before selecting an item. */
 .selectability [role*=textbox]
 {
     padding: 10px 0 6px 20px;
 }
 
+/*the dropdown arrow & padding*/
 .selectability [role*=textbox]::after
 {
     font-size: 2.6rem;
@@ -102,11 +107,13 @@ h1
     background-color: #99dbd7;
 }
 
+/* the dropdown arrow after exansion (here, unchanged). */
 .selectability[aria-expanded='true'] [role*=textbox]::after
 {
     content: '\0025be';
 }
 
+/* the entire dropdown list. position accordingly. */
 .selectability[aria-expanded=true] [role*=listbox]
 {
     position: absolute;
@@ -121,6 +128,7 @@ h1
     border: 1px solid black;
 }
 
+/* each selectable option. */
 .selectability [role=option]
 {
     font-weight: 300;
@@ -133,22 +141,16 @@ h1
         padding-top: 14px;
     }
 }
-
 .selectability [role=option][aria-disabled=false]:hover,
 .selectability [role=option][aria-disabled=false]:focus
 {
-    // border: 1px solid $alsPurple;
     text-decoration: underline;
-
     background: #fff;
 }
-
 .selectability [role=option][aria-disabled=false]:hover
 {
-    // border: 1px solid $alsPurple;
     text-decoration: underline;
 }
-
 .selectability [aria-disabled=true]
 {
     color: #999;
