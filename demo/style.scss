@@ -89,7 +89,7 @@ h1
     padding: 10px 0 6px 20px;
 }
 
-/*the dropdown arrow & padding*/
+/* the dropdown arrow & padding. */
 .selectability [role*=textbox]::after
 {
     font-size: 2.6rem;
@@ -141,16 +141,22 @@ h1
         padding-top: 14px;
     }
 }
+
+/* hover and focus states for options. */
 .selectability [role=option][aria-disabled=false]:hover,
 .selectability [role=option][aria-disabled=false]:focus
 {
     text-decoration: underline;
     background: #fff;
 }
+
+/* hover-specific state for options (here not actually needed). */
 .selectability [role=option][aria-disabled=false]:hover
 {
     text-decoration: underline;
 }
+
+/* disabled state for options. */
 .selectability [aria-disabled=true]
 {
     color: #999;
