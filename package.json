@@ -8,8 +8,9 @@
     "dropdown"
   ],
   "license": "MIT",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./jquery.selectability.js",
+  "types": "./jquery.selectability.d.ts",
   "homepage": "https://forumone.github.io/jquery.selectability.js/",
   "author": "Alex Ford <aford@forumone.com>",
   "bugs": {
