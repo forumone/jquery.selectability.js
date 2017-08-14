@@ -1,0 +1,28 @@
+{
+  "name": "jquery.selectability",
+  "description": "An accessible, style-friendly dropdown widget",
+  "keywords": [
+    "jquery",
+    "selectability",
+    "accessibility",
+    "dropdown"
+  ],
+  "license": "MIT",
+  "version": "1.0.3",
+  "main": "./jquery.selectability.js",
+  "homepage": "https://forumone.github.io/jquery.selectability.js/",
+  "author": "Alex Ford <aford@forumone.com>",
+  "bugs": {
+    "url": "https://github.com/forumone/jquery.selectability.js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forumone/jquery.selectability.js"
+  },
+  "peerDependencies": {
+    "jquery": ">=1.9.0"
+  },
+  "devDependencies": {
+    "@types/jquery": ">=1.9.0"
+  }
+}
