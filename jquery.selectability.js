@@ -328,7 +328,7 @@ Selectability.prototype.toggleCombobox = function() {
 
 Selectability.prototype.closeCombobox = function() {
   this.active = null;
-  this.listbox.empty();
+  this.listbox.hide().empty();
   this.combobox.attr('aria-expanded', false);
 };
 
@@ -341,7 +341,7 @@ Selectability.prototype.populateListbox = function() {
   this.populateText();
 
   var children = walk.call(this, this.element.children()).children();
-  this.listbox.append(children);
+  this.listbox.show().append(children);
   return;
 
   function walk (elements) {
